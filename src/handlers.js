@@ -3,26 +3,20 @@ const notes = require('./notes');
 
 
 const addNoteHandler = (request, h) => {
-    // client memasukkan data title, tag, dan body, sehingga disimpan dengan method payload
     const { title, tags, body } = request.payload;
 
-    // 3 data berikut tidak dimasukkan oleh cleint, sehingga server yg melakukannya
     const id = nanoid(16);
     const createdAt = new Date().toISOString();
     const updatedAt = createdAt;
 
-    //data disimpan dalam variabel newNote
     const newNote = {
         title, tags, body, id, createdAt, updatedAt,
     };
 
-    // data pada newNote dimasukkan ke dalam array notes
     notes.push(newNote);
 
-    // mengecek apakah note berhasil ditambahkan atau tidak
     const isSuccess = notes.filter((note) => note.id === id).length > 0;
 
-    // catatan berhasil dimasukkan
     if(isSuccess) {
         const response = h.response({
             status: 'success',
@@ -35,7 +29,6 @@ const addNoteHandler = (request, h) => {
         return response;
     }
 
-    // catatan gagal dimasukkan
     const response = h.response({
         status: 'fail',
         message: 'Catatan gagal ditambahkan',
