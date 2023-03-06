@@ -1,6 +1,6 @@
-const { request } = require('express');
 const { nanoid } = require('nanoid');
 const notes = require('./notes');
+
 
 const addNoteHandler = (request, h) => {
     // client memasukkan data title, tag, dan body, sehingga disimpan dengan method payload
